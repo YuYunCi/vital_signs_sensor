@@ -1,0 +1,5 @@
+flask
+keyboard
+mysql-connector-python
+numpy
+werkzeug

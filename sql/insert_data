@@ -1,0 +1,7 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_data`(IN `p_sensor_id` VARCHAR(10) CHARSET utf8, IN `p_room_number` INT(10), IN `p_bed_number` INT(10), IN `p_breath_rate` DECIMAL(5,2), IN `p_heart_rate` DECIMAL(5,2), IN `p_temperature_json` VARCHAR(5000) CHARSET utf8, IN `p_high_temperature` FLOAT)
+BEGIN
+INSERT INTO `abnormal_data`(`sensor_id`, `room_number`, `bed_number`, `breath_rate`, `heart_rate`, `temperature_json`, `high_temperature`) 
+VALUES (p_sensor_id, p_room_number, p_bed_number, p_breath_rate, p_heart_rate, p_temperature_json, p_high_temperature);
+END$$
+DELIMITER ;

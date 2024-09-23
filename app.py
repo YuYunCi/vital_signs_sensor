@@ -164,7 +164,6 @@ def data():
 def return_data():
     global SQL_DATA
     # room_number = request.json.get('room_number')
-    print("return_data:AAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     room_number = 0
     if room_number not in SQL_DATA:
         return jsonify({"error": "Room number not found"}), 404

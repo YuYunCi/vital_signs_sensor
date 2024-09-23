@@ -1,0 +1,11 @@
+CREATE TABLE `abnormal_data` (
+  `id` int(10) NOT NULL,
+  `sensor_id` varchar(10) DEFAULT NULL,
+  `room_number` int(10) DEFAULT NULL,
+  `bed_number` int(10) DEFAULT NULL,
+  `breath_rate` decimal(5,2) DEFAULT NULL,
+  `heart_rate` decimal(5,2) DEFAULT NULL,
+  `temperature_json` varchar(5000) DEFAULT NULL,
+  `high_temperature` float DEFAULT NULL,
+  `timestamp` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_nopad_ci;
