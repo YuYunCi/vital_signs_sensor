@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="data:;base64,=">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* 將整個頁面分成四個區塊 */
+        body {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            gap: 10px;
+            padding: 10px;
+            overflow: hidden;
+            /* 防止出現卷軸 */
+        }
+
+        .data-block {
+            display: flex;
+            flex-direction: row;
+            /* 水平排列圖片與文本 */
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #ccc;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .data-text {
+            margin-left: 10px;
+            /* 減少圖片與文字之間的距離 */
+            white-space: nowrap;
+            /* 確保文字不換行 */
+        }
+
+        p {
+            font-size: 25px;
+            margin: 10px 0;
+        }
+
+        .image img {
+            width: 50%;
+            /* 固定圖片寬度 */
+            height: auto;
+            object-fit: contain;
+            /* 確保圖片內容完整顯示 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="data-block">
+        <div class="data-text">
+            <h3>床位 1 </h3>
+            <p>心率: <span id="heart_rate_1">等待數據...</span></p>
+            <p>呼吸率: <span id="breath_rate_1">等待數據...</span></p>
+            <p>體溫: <span id="h_temprature_1">等待數據...</span></p>
+            <p>時間戳: <span id="timestamp_1">等待數據...</span></p>
+        </div>
+    </div>
+
+    <div class="data-block">
+        <div class="data-text">
+            <h3>床位 2 </h3>
+            <p>心率: <span id="heart_rate_2">等待數據...</span></p>
+            <p>呼吸率: <span id="breath_rate_2">等待數據...</span></p>
+            <p>體溫: <span id="h_temprature_2">等待數據...</span></p>
+            <p>時間戳: <span id="timestamp_2">等待數據...</span></p>
+        </div>
+    </div>
+
+    <div class="data-block">
+        <div class="data-text">
+            <h3>床位 3 </h3>
+            <p>心率: <span id="heart_rate_3">等待數據...</span></p>
+            <p>呼吸率: <span id="breath_rate_3">等待數據...</span></p>
+            <p>體溫: <span id="h_temprature_3">等待數據...</span></p>
+            <p>時間戳: <span id="timestamp_3">等待數據...</span></p>
+        </div>
+    </div>
+
+    <div class="data-block">
+        <div class="data-text">
+            <h3>床位 5 </h3>
+            <p>心率: <span id="heart_rate_4">等待數據...</span></p>
+            <p>呼吸率: <span id="breath_rate_4">等待數據...</span></p>
+            <p>體溫: <span id="h_temprature_4">等待數據...</span></p>
+            <p>時間戳: <span id="timestamp_4">等待數據...</span></p>
+        </div>
+    </div>
+
+    <script>
+        function fetchData() {
+            
+            $.ajax({
+                url: '/return_data', // 替換為您的數據端點
+                method: 'GET',
+                success: function (data) {
+                    console.log('get data:',data);
+                    // for(var i = 1; i <= 4; i++) {
+                    //     $('#heart_rate_' + i).text(data.heart_rate || "等待數據...");
+                    //     $('#breath_rate_' + i).text(data.breath_rate || "等待數據...");
+                    //     $('#h_temprature_' + i).text(data.hight_temperature || "等待數據...");
+                    //     $('#canvas_img_' + i).attr('src', "./static/canvas_temp.jpg");
+                    // }
+                    $('#heart_rate_1').text(data.heart_rate_1 || "等待數據...");
+                    $('#breath_rate_1').text(data.breath_rate_1 || "等待數據...");
+                    $('#h_temprature_1').text(data.hight_temperature_1 || "等待數據...");
+                    $('#timestamp_1').text(data.timestamp_1 || "等待數據...");
+
+                    $('#heart_rate_2').text(data.heart_rate_2 || "等待數據...");
+                    $('#breath_rate_2').text(data.breath_rate_2 || "等待數據...");
+                    $('#h_temprature_2').text(data.hight_temperature_2 || "等待數據...");
+                    $('#timestamp_2').text(data.timestamp_2 || "等待數據...");
+
+                    $('#heart_rate_3').text(data.heart_rate_3 || "等待數據...");
+                    $('#breath_rate_3').text(data.breath_rate_3 || "等待數據...");
+                    $('#h_temprature_3').text(data.hight_temperature_3 || "等待數據...");
+                    $('#timestamp_3').text(data.timestamp_3 || "等待數據...");
+
+                    $('#heart_rate_4').text(data.heart_rate_4 || "等待數據...");
+                    $('#breath_rate_4').text(data.breath_rate_4 || "等待數據...");
+                    $('#h_temprature_4').text(data.hight_temperature_4 || "等待數據...");
+                    $('#timestamp_4').text(data.timestamp_4 || "等待數據...");
+                    console.log(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.error('AJAX 請求發生錯誤：', textStatus, errorThrown);
+                    alert('無法獲取，稍後試。');
+                }  
+            });
+        }
+        function startRefreshing() {
+            fetchData();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            setInterval(fetchData, 5000); // 每5秒鐘執行一次fetchData
+            startRefreshing(); // 確保在文件準備好後執行startRefreshing
+        });
+    </script>
+</body>
+
+</html>
