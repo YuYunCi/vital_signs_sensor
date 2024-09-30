@@ -5,7 +5,7 @@ from room_information import RoomInformation
 import threading
 from datetime import datetime
 import keyboard
-from msvcrt import getch
+#from msvcrt import getch
 import sys
 import signal
 from werkzeug.serving import make_server
@@ -17,12 +17,12 @@ SQL = None
 SQL_DATA = dict()
 DICT_INDEX = ["breath_rate", "heart_rate", "hight_temperature", "timestamp"] 
 
-def get_key():
-        try:
-            key = getch().decode('utf-8')
-            return key
-        except UnicodeDecodeError:
-            return None
+# def get_key():
+        # try:
+            # key = getch().decode('utf-8')
+            # return key
+        # except UnicodeDecodeError:
+            # return None
 
 def check_delay(last_time, delay=1):
     now_time = datetime.now()
@@ -110,7 +110,7 @@ app = flask.Flask(__name__)
 # 定義根路由，返回 index.html 模板
 @app.route('/')
 def index():
-    return flask.render_template('index.html', heart_rate=heart_rates, breath_rate=breath_rates, high_temperature=high_temperature)
+    return flask.render_template('testindex.html', heart_rate=heart_rates, breath_rate=breath_rates, high_temperature=high_temperature)
 
 # 定義 /get_data 路由，處理 POST 請求
 @app.route('/get_data', methods=['POST'])
@@ -143,6 +143,7 @@ def data():
         return jsonify({"error": "Missing data"}), 400
     print(f"Success: get {data_dict['sensor_id']} data")
 
+    print("aaaaaa")
     sql = SqlCommands()
     # 轉換數據類型
     value = data_dict
@@ -162,6 +163,7 @@ def data():
 
 @app.route('/return_data', methods=['GET'])
 def return_data():
+    print("sssssss")
     global SQL_DATA
     # room_number = request.json.get('room_number')
     room_number = 0

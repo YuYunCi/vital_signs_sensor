@@ -1,11 +1,9 @@
 DELIMITER $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `get_data`(IN `p_room_number` INT(10), IN `p_bed_number` INT(10))
 BEGIN
-	SELECT `breath_rate`, `heart_rate`, `high_temperature`, `timestamp` 
-	FROM `abnormal_data` 
-	WHERE room_number = p_room_number 
-	  AND bed_number = p_bed_number 
-	ORDER BY `timestamp` DESC 
-	LIMIT 1;
+	SELECT `breath_rate`, `heart_rate`, `high_temperature`
+		FROM `tmp`
+		WHERE room_number = p_room_number AND bed_number = p_bed_number
+		LIMIT 1;
 END$$
 DELIMITER ;

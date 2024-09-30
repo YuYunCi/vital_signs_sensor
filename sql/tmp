@@ -1,0 +1,14 @@
+CREATE TABLE `tmp` (
+  `sensor_id` varchar(10) DEFAULT NULL,
+  `room_number` int(10) DEFAULT NULL,
+  `bed_number` int(10) DEFAULT NULL,
+  `breath_rate` decimal(5,2) DEFAULT NULL,
+  `heart_rate` decimal(5,2) DEFAULT NULL,
+  `high_temperature` decimal(5,2) DEFAULT NULL,
+  `up_timestamp` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+ALTER TABLE `tmp`
+  ADD KEY `room_number` (`room_number`,`bed_number`);
+COMMIT;

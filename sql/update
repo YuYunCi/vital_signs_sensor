@@ -1,0 +1,26 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `update`(IN `p_sensor_id` VARCHAR(10) CHARSET utf8, IN `p_room_number` INT(10), IN `p_bed_number` INT(10), IN `p_breath_rate` DECIMAL(5,2), IN `p_heart_rate` DECIMAL(5,2), IN `p_high_temperature` DECIMAL(5,2))
+BEGIN
+    DECLARE flag INT;
+
+    -- 設置變數 flag 的值，計算是否已存在符合條件的記錄
+    SET flag = (SELECT COUNT(*) FROM `tmp` WHERE room_number = p_room_number AND bed_number = p_bed_number);
+
+    -- 如果記錄已存在，則更新
+    IF flag = 1 THEN
+        UPDATE `tmp`
+        SET `sensor_id` = p_sensor_id, 
+            `breath_rate` = p_breath_rate, 
+            `heart_rate` = p_heart_rate, 
+            `high_temperature` = p_high_temperature,
+            `up_timestamp` = CURRENT_TIMESTAMP(6)
+        WHERE `room_number` = p_room_number 
+        AND `bed_number` = p_bed_number;
+
+    -- 如果記錄不存在，則插入
+    ELSE
+        INSERT INTO `tmp`(`sensor_id`, `room_number`, `bed_number`, `breath_rate`, `heart_rate`, `high_temperature`)
+        VALUES (p_sensor_id, p_room_number, p_bed_number, p_breath_rate, p_heart_rate, p_high_temperature);
+    END IF;
+END$$
+DELIMITER ;

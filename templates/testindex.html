@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" href="data:;base64,=">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
@@ -97,6 +98,45 @@
 
     <script>
         function fetchData() {
+            fetch('/return_data') // 替換為您的數據端點
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('網絡響應出錯');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('get data:', data);
+                    updateDataFields(data);
+                })
+                .catch(error => {
+                    console.error('Fetch 發生錯誤：', error);
+                    alert('無法獲取，稍後再試。');
+                });
+        }
+
+        function updateDataFields(data) {
+            for (var i = 1; i <= 4; i++) {
+                document.getElementById('heart_rate_' + i).textContent = data['heart_rate_' + i] || "等待數據...";
+                document.getElementById('breath_rate_' + i).textContent = data['breath_rate_' + i] || "等待數據...";
+                document.getElementById('h_temprature_' + i).textContent = data['hight_temperature_' + i] || "等待數據...";
+                document.getElementById('timestamp_' + i).textContent = data['timestamp_' + i] || "等待數據...";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchData(); // 首次加載數據
+            setInterval(fetchData, 5000); // 每5秒鐘執行一次fetchData
+        });
+
+    </script>
+</body>
+
+</html>
+
+
+    <!-- <script>
+        function fetchData() {
             
             jQuery.ajax({
                 url: '/return_data', // 替換為您的數據端點
@@ -107,7 +147,6 @@
                     //     $('#heart_rate_' + i).text(data.heart_rate || "等待數據...");
                     //     $('#breath_rate_' + i).text(data.breath_rate || "等待數據...");
                     //     $('#h_temprature_' + i).text(data.hight_temperature || "等待數據...");
-                    //     $('#canvas_img_' + i).attr('src', "./static/canvas_temp.jpg");
                     // }
                     $('#heart_rate_1').text(data.heart_rate_1 || "等待數據...");
                     $('#breath_rate_1').text(data.breath_rate_1 || "等待數據...");
@@ -144,7 +183,4 @@
             setInterval(fetchData, 5000); // 每5秒鐘執行一次fetchData
             startRefreshing(); // 確保在文件準備好後執行startRefreshing
         });
-    </script>
-</body>
-
-</html>
+    </script> -->

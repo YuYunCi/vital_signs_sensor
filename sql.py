@@ -38,7 +38,7 @@ class SqlCommands:
                 host="localhost",
                 user="stust",
                 password="1234",
-                db_name="test3",#fmcw
+                db_name="fmcw",#fmcw
                 table_name="abnormal_data",
                 insert_key=INSERT_KEY):
         # 初始化資料庫連接參數

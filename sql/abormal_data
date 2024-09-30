@@ -5,7 +5,15 @@ CREATE TABLE `abnormal_data` (
   `bed_number` int(10) DEFAULT NULL,
   `breath_rate` decimal(5,2) DEFAULT NULL,
   `heart_rate` decimal(5,2) DEFAULT NULL,
-  `temperature_json` varchar(5000) DEFAULT NULL,
+  `temperature_json` TEXT DEFAULT NULL,
   `high_temperature` float DEFAULT NULL,
   `timestamp` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_nopad_ci;
+
+ALTER TABLE `abnormal_data`
+  ADD PRIMARY KEY (`id`);
+
+
+ALTER TABLE `abnormal_data`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3434;
+COMMIT;
